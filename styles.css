@@ -1,0 +1,836 @@
+/* 变量定义 */
+:root {
+    --primary-color: #2196F3;
+    --success-color: #4CAF50;
+    --warning-color: #FF9800;
+    --error-color: #f44336;
+    --text-primary: #333;
+    --text-secondary: #666;
+    --background-color: #f5f5f5;
+    --card-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* 基础样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: var(--background-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+/* 头部样式 */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+.header h1 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+/* 进度条容器 */
+.progress-container {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+    box-shadow: var(--card-shadow);
+}
+
+.progress-bar {
+    height: 20px;
+    background: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--primary-color);
+    transition: width 0.5s ease;
+}
+
+/* 日历网格 */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+/* 日期卡片 */
+.day-card {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.day-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.day-card.active {
+    background: var(--success-color);
+    color: white;
+}
+
+/* 按钮样式 */
+button {
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* 笔记区域 */
+.notes-section {
+    margin-top: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+.notes-section h3 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    margin: 10px 0;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* 成就样式 */
+.achievements {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+.badge {
+    background: var(--warning-color);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* 模态框样式 */
+.task-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    max-width: 90%;
+    width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 1000;
+    /* 添加平滑过渡 */
+    transition: opacity 0.3s ease;
+}
+
+/* 添加模态框打开状态 */
+.task-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+/* 添加这个新样式 */
+.modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+    /* 添加平滑过渡 */
+    transition: opacity 0.3s ease;
+}
+
+/* 确保遮罩层完全覆盖 */
+.modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+/* 模态框内容样式 */
+.task-modal h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.task-modal h3 {
+    margin: 15px 0 10px;
+    color: var(--text-secondary);
+}
+
+.task-modal ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.task-modal li {
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.task-modal pre {
+    margin: 15px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.task-modal code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+/* 模态框笔记编辑区域的样式 */
+.modal-note {
+    width: 100%;
+    min-height: 100px;
+    margin: 10px 0;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    transition: border-color 0.3s ease;
+    background: #f8f9fa;
+}
+
+.modal-note:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: white;
+}
+
+/* 按钮容器样式 */
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* 修改按钮样式让它们共享相同的基础样式 */
+.modal-buttons button {
+    flex: 1;
+    padding: 10px 24px;
+    border-radius: 25px;
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-note-btn {
+    background: var(--success-color);
+    color: white;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+.close-btn {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+}
+
+.modal-buttons button:hover {
+    transform: translateY(-2px);
+    opacity: 0.95;
+}
+
+.modal-buttons button:active {
+    transform: translateY(0);
+}
+
+/* ========== 模态框整体升级 ========== */
+#editPlanModal.task-modal {
+    padding: 0;
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12px);
+    overflow: hidden;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+}
+
+#editPlanModal.task-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 添加关闭按钮 */
+.modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: rgba(33, 150, 243, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+}
+
+.modal-close-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: rotate(90deg);
+}
+
+/* 遮罩层样式更新 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========== 标题区域样式 ========== */
+#editPlanModal h2 {
+    background: var(--primary-color);
+    color: white;
+    padding: 24px;
+    margin: 0;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ========== 内容区域样式 ========== */
+.edit-plan-content {
+    padding: 24px;
+    display: grid;
+    gap: 28px;
+    max-height: calc(90vh - 120px); /* 减去标题和按钮的高度 */
+    overflow-y: auto;
+}
+
+/* ========== 输入组件样式 ========== */
+.plan-settings {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+    padding: 20px;
+    background: rgba(245, 245, 245, 0.6);
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+}
+
+.plan-settings label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.plan-settings input {
+    padding: 14px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+.plan-settings input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+    outline: none;
+}
+
+/* ========== 下拉菜单样式 ========== */
+.day-selector {
+    position: relative;
+    width: 100%;
+    margin: 16px 0;
+}
+
+.day-selector select {
+    width: 100%;
+    padding: 14px 14px 14px 40px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 15px;
+    appearance: none;
+}
+
+.day-selector select:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+/* ========== 按钮样式更新 ========== */
+.modal-buttons {
+    display: flex;
+    gap: 16px;
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.95);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.close-btn {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* ========== 移动端适配 ========== */
+@media (max-width: 600px) {
+    #editPlanModal.task-modal {
+        width: 95%;
+        padding: 0;
+    }
+    
+    .edit-plan-content {
+        padding: 16px;
+    }
+    
+    .plan-settings {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-buttons {
+        flex-direction: column;
+    }
+    
+    .modal-buttons button {
+        width: 100%;
+    }
+}
+/* 模态框主体样式 */
+#editPlanModal .edit-plan-content {
+    background: #fff;
+    padding: 0;
+}
+
+/* 标题区域 */
+#editPlanModal h2 {
+    margin: 0;
+    padding: 24px 32px;
+    font-size: 20px;
+    color: #1a1a1a;
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+}
+
+/* 内容区域 */
+.edit-plan-content {
+    padding: 24px 32px;
+}
+
+/* 设置区域样式 */
+.plan-settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.plan-settings label {
+    font-size: 14px;
+    color: #666;
+}
+
+.plan-settings input {
+    margin-top: 8px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* 天数选择器 */
+.day-selector {
+    margin-bottom: 32px;
+}
+
+.day-selector select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+}
+
+/* 每日主题输入框 */
+#dayTitle {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 32px;
+}
+
+/* 目标和任务列表 */
+.goals-editor,
+.tasks-editor {
+    margin-bottom: 32px;
+}
+
+.goals-editor h3,
+.tasks-editor h3 {
+    font-size: 16px;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+.item-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: center;
+}
+
+.item-row input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.item-row input:focus {
+    border-color: #2196F3;
+    outline: none;
+}
+
+.item-row .remove-btn {
+    padding: 8px 16px;
+    background: #f5f5f5;
+    border: none;
+    border-radius: 6px;
+    color: #666;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.item-row .remove-btn:hover {
+    background: #e0e0e0;
+}
+
+/* 添加按钮 */
+.add-btn {
+    width: 100%;
+    padding: 10px;
+    background: #f5f5f5;
+    border: 1px dashed #ccc;
+    border-radius: 6px;
+    color: #666;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+.add-btn:hover {
+    background: #e0e0e0;
+}
+
+/* 代码编辑器 */
+.code-editor {
+    margin-bottom: 32px;
+}
+
+.code-editor h3 {
+    font-size: 16px;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    font-weight: 500;
+}
+
+#codeExample {
+    width: 100%;
+    min-height: 200px;
+    padding: 16px;
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+}
+
+/* 底部按钮区域 */
+.modal-buttons {
+    padding: 20px 32px;
+    display: flex;
+    gap: 12px;
+    border-top: 1px solid #eee;
+    background: #fff;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-btn {
+    background: #2196F3;
+    color: white;
+    border: none;
+}
+
+.save-btn:hover {
+    background: #1976D2;
+}
+
+.close-btn {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    color: #666;
+}
+
+.close-btn:hover {
+    background: #f5f5f5;
+}
+
+/* 所有输入框获得焦点时的样式 */
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #2196F3;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .plan-settings {
+        grid-template-columns: 1fr;
+    }
+    
+    .edit-plan-content {
+        padding: 20px;
+    }
+    
+    .modal-buttons {
+        padding: 16px 20px;
+    }
+}
+/* 编辑计划内容区域的内边距 */
+.edit-plan-content {
+    padding: 24px 32px; /* 增加左右内边距 */
+}
+
+/* 总天数和提醒时间的容器样式 */
+.plan-settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px; /* 增加两个输入框之间的间距 */
+    margin-bottom: 32px;
+    padding: 0 32px; /* 额外的左右内边距 */
+}
+
+/* 选择天数区域 */
+.day-selector {
+    margin: 24px 32px; /* 增加左右外边距 */
+}
+
+/* 主标题输入框区域 */
+#dayTitle {
+    margin: 0 32px; /* 增加左右外边距 */
+    width: calc(100% - 64px); /* 确保宽度正确 */
+}
+
+/* 学习目标和今日任务区域 */
+.goals-editor,
+.tasks-editor,
+.code-editor {
+    margin: 24px 32px; /* 增加左右外边距 */
+}
+
+/* 底部按钮区域 */
+.modal-buttons {
+    padding: 24px 32px; /* 增加左右内边距 */
+}
+/* 按钮容器样式 */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+/* 按钮通用样式 */
+.button-container button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--primary-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+}
+
+/* 今日打卡按钮特殊样式 */
+.button-container button:first-child {
+    background: #2196F3;
+}
+
+/* 编辑学习计划按钮特殊样式 */
+.button-container button:last-child {
+    background: #1976D2;
+}
+
+/* 按钮悬停效果 */
+.button-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+/* 按钮激活效果 */
+.button-container button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(33, 150, 243, 0.2);
+}
+
+/* 添加图标到按钮 */
+.button-container button:first-child::before {
+    content: "✓";
+    font-size: 18px;
+}
+
+.button-container button:last-child::before {
+    content: "✏️";
+    font-size: 18px;
+}

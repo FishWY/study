@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>C++ 20天冲刺计划</title>
+        <!-- 添加 confetti 库 -->
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        <!-- 引入 dayjs -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/locale/zh-cn.min.js"></script>
+        <!-- 引入外部资源 -->
+        <link rel="stylesheet" href="styles.css">
+    </head>
+<body>
+    <div class="header">
+        <h1>🚀 C++ 20天冲刺计划</h1>
+        <div id="countdown"></div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        <!-- 新增按钮容器 -->
+        <div class="button-container">
+            <button onclick="toggleToday()">今日打卡</button>
+            <button onclick="openEditPlan()" class="edit-plan-btn">编辑学习计划</button>
+        </div>
+    </div>
+
+    <div class="calendar" id="calendar"></div>
+
+    <div class="notes-section">
+        <h3>📝 学习笔记</h3>
+        <textarea id="dailyNote" placeholder="记录今日学习心得..."></textarea>
+        <button onclick="saveNote()">保存笔记</button>
+    </div>
+
+    <div class="achievements" id="achievements"></div>
+
+    <!-- 任务详情模态框 -->
+<div id="taskModal" class="task-modal" style="display: none;">
+    <h2 id="modalTitle"></h2>
+    <div id="modalContent"></div>
+</div>
+
+<div id="modalOverlay" class="modal-overlay" style="display: none;" onclick="closeModal()"></div>
+
+<!-- 编辑计划模态框 -->
+<!-- 编辑计划模态框 -->
+<div id="editPlanModal" class="task-modal" style="display: none;">
+    <div class="modal-content">
+        <button class="modal-close-btn" onclick="closeEditPlanModal()">×</button>
+        <h2>自定义学习计划</h2>
+        <div class="edit-plan-content">
+            <div class="plan-settings">
+                <label>
+                    总天数:
+                    <input type="number" id="totalDays" min="1" max="100" value="20">
+                </label>
+                <label>
+                    提醒时间:
+                    <input type="time" id="reminderTime">
+                </label>
+            </div>
+            <div class="day-selector">
+                选择天数: <select id="daySelector"></select>
+            </div>
+            <div class="day-content-editor">
+                <input type="text" id="dayTitle" placeholder="今日主题">
+                <div class="goals-editor">
+                    <h3>学习目标</h3>
+                    <div id="goalsList"></div>
+                    <button onclick="addGoal()" class="add-btn">添加目标</button>
+                </div>
+                <div class="tasks-editor">
+                    <h3>今日任务</h3>
+                    <div id="tasksList"></div>
+                    <button onclick="addTask()" class="add-btn">添加任务</button>
+                </div>
+                <div class="code-editor">
+                    <h3>示例代码</h3>
+                    <textarea id="codeExample" placeholder="在此输入示例代码..."></textarea>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button onclick="saveDayPlan()" class="save-btn">保存修改</button>
+                <button onclick="closeEditPlanModal()" class="close-btn">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 先引入 dayjs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/dayjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.10/locale/zh-cn.min.js"></script>
+<!-- 最后引入应用代码 -->
+<script src="app.js"></script>
+</body>
+</html>
