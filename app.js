@@ -804,3 +804,75 @@ document.addEventListener('DOMContentLoaded', function() {
     updateProgress();
     setInterval(updateProgress, 60000);
 });
+// 打开补签模态框
+window.openMakeUpSign = function() {
+    const today = dayjs();
+    const startDay = dayjs(startDate);
+    const todayIndex = getTodayIndex();
+    
+    // 如果今天已经打卡，不允许补签
+    if (storage.completedDays.includes(todayIndex)) {
+        alert('今日已打卡，无需补签！');
+        return;
+    }
+
+    document.getElementById('makeUpModal').style.display = 'block';
+    document.getElementById('modalOverlay').style.display = 'block';
+    
+    // 设置日期选择器的范围
+    const makeUpDateInput = document.getElementById('makeUpDate');
+    makeUpDateInput.min = startDate;
+    makeUpDateInput.max = today.format('YYYY-MM-DD');
+    makeUpDateInput.value = today.format('YYYY-MM-DD');
+}
+
+// 关闭补签模态框
+window.closeMakeUpModal = function() {
+    document.getElementById('makeUpModal').style.display = 'none';
+    document.getElementById('modalOverlay').style.display = 'none';
+}
+
+// 提交补签
+window.submitMakeUp = function() {
+    const makeUpDate = dayjs(document.getElementById('makeUpDate').value);
+    const makeUpNote = document.getElementById('makeUpNote').value.trim();
+    const startDay = dayjs(startDate);
+    
+    // 计算补签日期对应的索引
+    const makeUpIndex = makeUpDate.diff(startDay, 'day');
+    
+    // 验证补签日期的有效性
+    if (makeUpIndex < 0 || makeUpIndex >= TOTAL_DAYS) {
+        alert('补签日期超出计划范围！');
+        return;
+    }
+    
+    // 验证是否已经打卡
+    if (storage.completedDays.includes(makeUpIndex)) {
+        alert('该日期已打卡，无需补签！');
+        return;
+    }
+    
+    // 执行补签
+    const completed = storage.completedDays;
+    completed.push(makeUpIndex);
+    localStorage.setItem('completedDays', JSON.stringify(completed));
+    
+    // 如果有补签备注，保存到笔记
+    if (makeUpNote) {
+        const notes = storage.notes;
+        notes[makeUpIndex] = `[补签] ${makeUpNote}`;
+        localStorage.setItem('notes', JSON.stringify(notes));
+    }
+    
+    // 更新界面
+    generateCalendar();
+    updateProgress();
+    checkAchievements();
+    
+    // 关闭模态框
+    closeMakeUpModal();
+    
+    // 显示成功提示
+    alert('补签成功！');
+}
