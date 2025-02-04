@@ -25,9 +25,25 @@
         <!-- 新增按钮容器 -->
         <div class="button-container">
             <button onclick="toggleToday()">今日打卡</button>
+            <button onclick="openMakeUpSign()" class="make-up-btn">补签</button>
             <button onclick="openEditPlan()" class="edit-plan-btn">编辑学习计划</button>
         </div>
-    </div>
+        
+        <!-- 添加补签模态框 -->
+        <div id="makeUpModal" class="task-modal" style="display: none;">
+            <div class="modal-content">
+                <button class="modal-close-btn" onclick="closeMakeUpModal()">×</button>
+                <h2>补签日期选择</h2>
+                <div class="make-up-content">
+                    <input type="date" id="makeUpDate">
+                    <textarea id="makeUpNote" placeholder="补签说明..."></textarea>
+                    <div class="modal-buttons">
+                        <button onclick="submitMakeUp()" class="save-btn">确认补签</button>
+                        <button onclick="closeMakeUpModal()" class="close-btn">取消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     <div class="calendar" id="calendar"></div>
 
