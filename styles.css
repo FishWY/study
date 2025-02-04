@@ -834,3 +834,97 @@ textarea:focus {
     content: "✏️";
     font-size: 18px;
 }
+/* 补签按钮样式 */
+.button-container button.make-up-btn {
+    background: #FF9800; /* 使用警告色以区分普通打卡 */
+}
+
+.button-container button.make-up-btn::before {
+    content: "📝"; /* 添加补签图标 */
+    font-size: 18px;
+}
+
+/* 补签模态框样式 */
+.make-up-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 补签日期选择器样式 */
+.make-up-content input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.make-up-content input[type="date"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* 补签说明文本框样式 */
+.make-up-content textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 12px;
+    border: 2px solid #eee;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.make-up-content textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* 补签模态框按钮样式 */
+.make-up-content .modal-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.make-up-content .modal-buttons button {
+    flex: 1;
+    padding: 12px 24px;
+    border-radius: 25px;
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.make-up-content .save-btn {
+    background: #FF9800;
+    color: white;
+}
+
+.make-up-content .close-btn {
+    background: #f5f5f5;
+    color: var(--text-primary);
+}
+
+/* 移动端适配 */
+@media (max-width: 600px) {
+    .make-up-content {
+        padding: 16px;
+    }
+    
+    .make-up-content .modal-buttons {
+        flex-direction: column;
+    }
+    
+    .make-up-content .modal-buttons button {
+        width: 100%;
+    }
+}
